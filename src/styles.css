@@ -142,3 +142,341 @@
     color: var(--color-foreground);
   }
 }
+
+/* ===== Wedding invitation design tokens ===== */
+:root {
+  --paper: oklch(0.975 0.012 85);
+  --paper-shade: oklch(0.935 0.02 82);
+  --ink: oklch(0.34 0.035 55);
+  --ink-soft: oklch(0.46 0.03 55);
+  --gold: oklch(0.74 0.09 80);
+  --gold-deep: oklch(0.52 0.08 72);
+  --gold-soft: oklch(0.86 0.06 85);
+  --blush: oklch(0.8 0.04 30);
+  --wax: oklch(0.78 0.07 50);
+  --wax-deep: oklch(0.58 0.09 48);
+  --wax-shadow: oklch(0.46 0.07 46);
+  --surface: oklch(0.76 0.03 72);
+  --surface-deep: oklch(0.66 0.038 66);
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-arabic: "Amiri", "Scheherazade New", serif;
+  --font-arabic-display: "Aref Ruqaa", "Amiri", serif;
+}
+
+/* ===== Page surface ===== */
+.inv-page {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem) 1rem;
+  background:
+    radial-gradient(120% 120% at 50% 18%, oklch(0.82 0.028 74) 0%, oklch(0.72 0.034 68) 55%, oklch(0.62 0.04 62) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.inv-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.inv-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 240px 60px oklch(0.4 0.03 60 / 0.55);
+  pointer-events: none;
+}
+
+/* ===== Card shell ===== */
+.inv-card {
+  position: relative;
+  width: min(92vw, 460px);
+  aspect-ratio: 1200 / 1712;
+  border-radius: 6px;
+  box-shadow:
+    0 2px 6px oklch(0.3 0.02 60 / 0.25),
+    0 30px 60px -20px oklch(0.25 0.03 55 / 0.6),
+    0 60px 120px -40px oklch(0.2 0.03 55 / 0.5);
+  background: var(--paper);
+  isolation: isolate;
+  z-index: 1;
+}
+.inv-surface {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ===== Overlay layers ===== */
+.inv-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 9% 11% 9%;
+  text-align: center;
+}
+
+/* Front (closed) layer */
+.inv-front {
+  transition: opacity 0.7s ease, transform 0.8s ease;
+}
+.inv-card[data-stage="opening"] .inv-front,
+.inv-card[data-stage="open"] .inv-front {
+  opacity: 0;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+
+/* Inside (opened) layer */
+.inv-inside {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.8s ease 0.45s, transform 0.8s ease 0.45s;
+  pointer-events: none;
+  overflow-y: auto;
+  justify-content: flex-start;
+  scrollbar-width: thin;
+}
+.inv-inside::-webkit-scrollbar { width: 5px; }
+.inv-inside::-webkit-scrollbar-thumb { background: var(--gold-soft); border-radius: 6px; }
+.inv-card[data-stage="open"] .inv-inside {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+/* ===== Crest monogram ===== */
+.inv-crest {
+  margin-top: 2%;
+  width: 58%;
+  max-width: 230px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.crest-wreath { width: 100%; height: auto; display: block; }
+.crest-monogram {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold-deep);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  font-size: clamp(2.2rem, 12vw, 3.4rem);
+  margin-top: -0.2em;
+  text-shadow: 0 1px 0 oklch(1 0 0 / 0.5);
+}
+
+/* ===== Ribbon + wax seal ===== */
+.inv-band {
+  position: relative;
+  width: 92%;
+  margin: auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.inv-ribbon {
+  position: absolute;
+  inset: 0 0;
+  height: 26%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg,
+    oklch(0.96 0.01 85) 0%,
+    oklch(0.9 0.015 82) 45%,
+    oklch(0.82 0.02 80) 100%);
+  box-shadow: 0 6px 16px oklch(0.3 0.02 60 / 0.25), inset 0 0 0 1px oklch(0.78 0.02 78);
+  border-radius: 2px;
+  transition: transform 0.7s cubic-bezier(0.6, 0, 0.35, 1), opacity 0.5s ease;
+  z-index: 1;
+}
+.inv-ribbon::before,
+.inv-ribbon::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+  background: linear-gradient(90deg, oklch(0.8 0.02 80), transparent);
+}
+.inv-ribbon::before { left: 0; }
+.inv-ribbon::after { right: 0; transform: scaleX(-1); }
+
+.inv-seal {
+  position: relative;
+  z-index: 2;
+  width: 30%;
+  max-width: 96px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.55s cubic-bezier(0.5, -0.2, 0.4, 1.4), opacity 0.5s ease;
+}
+.seal-disc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 38% 32%, oklch(0.86 0.06 52) 0%, var(--wax) 42%, var(--wax-deep) 78%, var(--wax-shadow) 100%);
+  box-shadow:
+    0 8px 18px oklch(0.3 0.05 46 / 0.5),
+    inset 0 2px 4px oklch(1 0 0 / 0.35),
+    inset 0 -6px 12px oklch(0.4 0.07 46 / 0.55);
+}
+.seal-ring {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  border: 1.5px solid oklch(0.95 0.04 60 / 0.55);
+  box-shadow: inset 0 0 0 3px oklch(0.62 0.08 48 / 0.4);
+}
+.seal-mono {
+  position: relative;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+  color: oklch(0.97 0.02 60);
+  font-size: clamp(1rem, 5vw, 1.5rem);
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 1px oklch(0.35 0.07 46 / 0.6);
+  z-index: 1;
+}
+.inv-card[data-stage="opening"] .inv-seal,
+.inv-card[data-stage="open"] .inv-seal {
+  transform: scale(1.55) rotate(14deg);
+  opacity: 0;
+}
+.inv-card[data-stage="opening"] .inv-ribbon,
+.inv-card[data-stage="open"] .inv-ribbon {
+  transform: translate(120%, -50%) scaleX(0.5);
+  opacity: 0;
+}
+
+/* ===== Front footer (names + hint) ===== */
+.inv-names {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: 0.42em;
+  text-indent: 0.42em;
+  font-size: clamp(0.95rem, 4.4vw, 1.25rem);
+}
+.inv-hint {
+  margin-top: 0.7rem;
+  font-family: var(--font-arabic-display);
+  color: var(--gold-deep);
+  font-size: clamp(0.8rem, 3.4vw, 1rem);
+  opacity: 0.85;
+  animation: hint-pulse 2.6s ease-in-out infinite;
+}
+@keyframes hint-pulse {
+  0%, 100% { opacity: 0.45; transform: translateY(0); }
+  50% { opacity: 0.95; transform: translateY(2px); }
+}
+
+/* ===== Inside (Arabic invitation) ===== */
+.inv-inside { font-family: var(--font-arabic); color: var(--ink); }
+.arabic { direction: rtl; }
+.verse {
+  font-family: var(--font-arabic);
+  font-weight: 700;
+  color: var(--gold-deep);
+  font-size: clamp(0.95rem, 3.9vw, 1.2rem);
+  line-height: 2.1;
+  margin-bottom: 0.4rem;
+}
+.verse .br { color: var(--gold); font-weight: 700; }
+.div-orn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0.7rem 0;
+  color: var(--gold);
+}
+.div-orn::before, .div-orn::after {
+  content: "";
+  height: 1px;
+  width: clamp(30px, 18vw, 70px);
+  background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+}
+.inv-intro {
+  font-size: clamp(0.82rem, 3.3vw, 1rem);
+  line-height: 1.95;
+  color: var(--ink-soft);
+  margin-bottom: 0.5rem;
+}
+.couple {
+  font-family: var(--font-arabic-display);
+  color: var(--ink);
+  font-size: clamp(1.3rem, 6.4vw, 2rem);
+  line-height: 1.4;
+  margin: 0.2rem 0 0.4rem;
+}
+.couple .amp { color: var(--gold-deep); font-family: var(--font-display); font-style: italic; }
+.inv-plea {
+  font-size: clamp(0.8rem, 3.2vw, 0.98rem);
+  line-height: 1.9;
+  color: var(--ink-soft);
+  margin-bottom: 0.6rem;
+}
+.section-title {
+  font-family: var(--font-arabic-display);
+  color: var(--gold-deep);
+  font-size: clamp(0.95rem, 4.2vw, 1.18rem);
+  margin: 0.5rem 0 0.35rem;
+  position: relative;
+}
+.program-item {
+  font-size: clamp(0.8rem, 3.2vw, 0.96rem);
+  line-height: 1.7;
+  margin: 0.28rem 0;
+}
+.program-item .label { color: var(--gold-deep); font-weight: 700; }
+.program-item .venue { color: var(--ink-soft); }
+.closing {
+  font-family: var(--font-arabic-display);
+  color: var(--ink);
+  font-size: clamp(0.92rem, 4vw, 1.12rem);
+  line-height: 1.8;
+  margin-top: 0.7rem;
+}
+.inv-close {
+  position: absolute;
+  top: 4%;
+  left: 5%;
+  font-family: var(--font-arabic-display);
+  font-size: 0.8rem;
+  color: var(--gold-deep);
+  opacity: 0.7;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0.3rem 0.5rem;
+  transition: opacity 0.2s;
+}
+.inv-close:hover { opacity: 1; }
+
+/* fade-in entrance for the card */
+@keyframes card-rise {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+.inv-card { animation: card-rise 1.1s cubic-bezier(0.22, 1, 0.36, 1) both; }
