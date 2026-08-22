@@ -225,12 +225,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 9% 11% 9%;
+  padding: 8% 11%;
   text-align: center;
 }
 
 /* Front (closed) layer */
 .inv-front {
+  padding: 7% 11% 12%;
   transition: opacity 0.7s ease, transform 0.8s ease;
 }
 .inv-card[data-stage="opening"] .inv-front,
@@ -242,6 +243,7 @@
 
 /* Inside (opened) layer */
 .inv-inside {
+  padding: 14% 13% 14%;
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 0.8s ease 0.45s, transform 0.8s ease 0.45s;
@@ -379,16 +381,17 @@
   font-size: clamp(0.95rem, 4.4vw, 1.25rem);
 }
 .inv-hint {
-  margin-top: 0.7rem;
+  margin-top: 0.6rem;
   font-family: var(--font-arabic-display);
-  color: var(--gold-deep);
-  font-size: clamp(0.8rem, 3.4vw, 1rem);
-  opacity: 0.85;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: clamp(0.82rem, 3.5vw, 1.02rem);
+  opacity: 0.9;
   animation: hint-pulse 2.6s ease-in-out infinite;
 }
 @keyframes hint-pulse {
-  0%, 100% { opacity: 0.45; transform: translateY(0); }
-  50% { opacity: 0.95; transform: translateY(2px); }
+  0%, 100% { opacity: 0.6; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(2px); }
 }
 
 /* ===== Inside (Arabic invitation) ===== */
@@ -398,9 +401,9 @@
   font-family: var(--font-arabic);
   font-weight: 700;
   color: var(--gold-deep);
-  font-size: clamp(0.95rem, 3.9vw, 1.2rem);
-  line-height: 2.1;
-  margin-bottom: 0.4rem;
+  font-size: clamp(0.9rem, 3.7vw, 1.12rem);
+  line-height: 1.9;
+  margin-bottom: 0.3rem;
 }
 .verse .br { color: var(--gold); font-weight: 700; }
 .div-orn {
@@ -408,7 +411,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  margin: 0.7rem 0;
+  margin: 0.5rem 0;
   color: var(--gold);
 }
 .div-orn::before, .div-orn::after {
@@ -440,14 +443,14 @@
 .section-title {
   font-family: var(--font-arabic-display);
   color: var(--gold-deep);
-  font-size: clamp(0.95rem, 4.2vw, 1.18rem);
-  margin: 0.5rem 0 0.35rem;
+  font-size: clamp(0.92rem, 4vw, 1.12rem);
+  margin: 0.35rem 0 0.25rem;
   position: relative;
 }
 .program-item {
-  font-size: clamp(0.8rem, 3.2vw, 0.96rem);
-  line-height: 1.7;
-  margin: 0.28rem 0;
+  font-size: clamp(0.78rem, 3.1vw, 0.92rem);
+  line-height: 1.6;
+  margin: 0.22rem 0;
 }
 .program-item .label { color: var(--gold-deep); font-weight: 700; }
 .program-item .venue { color: var(--ink-soft); }
