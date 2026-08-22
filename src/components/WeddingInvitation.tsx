@@ -7,7 +7,7 @@ type Stage = "closed" | "opening" | "open";
 function CrestWreath() {
   // a single laurel branch, drawn rising along a curve; mirrored for the right side
   const branch = (side: 1 | -1) => (
-    <g transform={`scale(${side},1)`}>
+    <g transform={side === 1 ? undefined : "translate(120,0) scale(-1,1)"}>
       <path
         d="M30 96 C 12 78, 6 50, 16 22"
         fill="none"
@@ -44,7 +44,6 @@ function CrestWreath() {
       </g>
       {/* rings */}
       <circle cx="60" cy="60" r="42" fill="none" stroke="var(--gold)" strokeWidth="1" opacity="0.6" />
-      <circle cx="60" cy="60" r="38" fill="none" stroke="var(--gold-deep)" strokeWidth="0.7" opacity="0.5" strokeDasharray="1 3" />
       {/* laurel branches */}
       {branch(1)}
       {branch(-1)}
@@ -141,8 +140,7 @@ export default function WeddingInvitation() {
             </div>
           </div>
 
-          <div style={{ marginTop: "auto", marginBottom: "2%", display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <div className="inv-names">H & R</div>
+          <div style={{ marginTop: "auto", marginBottom: "4%", display: "flex", flexDirection: "column", alignItems: "center" }}>
             <Divider />
             <div className="inv-hint">اضغط لفتح الدعوة</div>
           </div>
