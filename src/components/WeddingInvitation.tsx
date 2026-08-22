@@ -98,6 +98,7 @@ export default function WeddingInvitation() {
 
   return (
     <main className="inv-page">
+      <div className="inv-stack">
       <div
         className="inv-card"
         data-stage={stage}
@@ -148,12 +149,6 @@ export default function WeddingInvitation() {
 
         {/* ---------- Opened inside ---------- */}
         <div className="inv-layer inv-inside arabic">
-          {stage === "open" && (
-            <button className="inv-close" onClick={(e) => { e.stopPropagation(); close(); }} aria-label="إغلاق">
-              ✕ عودة
-            </button>
-          )}
-
           <p className="verse">
             <span className="br">﴿</span>
             وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا
@@ -193,6 +188,12 @@ export default function WeddingInvitation() {
             حضوركم يسعدنا ويشرّفنا، ودعواتكم الصادقة تضيء دربنا
           </p>
         </div>
+      </div>
+      {stage === "open" && (
+        <button className="inv-close-out" onClick={close} aria-label="إغلاق والعودة">
+          ✕ إغلاق
+        </button>
+      )}
       </div>
     </main>
   );

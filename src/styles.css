@@ -231,7 +231,7 @@
 
 /* Front (closed) layer */
 .inv-front {
-  padding: 7% 11% 12%;
+  padding: 9% 11% 15%;
   transition: opacity 0.7s ease, transform 0.8s ease;
 }
 .inv-card[data-stage="opening"] .inv-front,
@@ -243,12 +243,14 @@
 
 /* Inside (opened) layer */
 .inv-inside {
-  padding: 14% 13% 14%;
+  inset: 17% 14%;
+  padding: 0 4%;
   opacity: 0;
   transform: translateY(14px);
   transition: opacity 0.8s ease 0.45s, transform 0.8s ease 0.45s;
   pointer-events: none;
   overflow-y: auto;
+  overflow-x: hidden;
   justify-content: flex-start;
   scrollbar-width: thin;
 }
@@ -461,21 +463,32 @@
   line-height: 1.8;
   margin-top: 0.7rem;
 }
-.inv-close {
-  position: absolute;
-  top: 4%;
-  left: 5%;
-  font-family: var(--font-arabic-display);
-  font-size: 0.8rem;
-  color: var(--gold-deep);
-  opacity: 0.7;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0.3rem 0.5rem;
-  transition: opacity 0.2s;
+.inv-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+  position: relative;
+  z-index: 1;
 }
-.inv-close:hover { opacity: 1; }
+.inv-close-out {
+  font-family: var(--font-arabic-display);
+  color: var(--paper);
+  background: oklch(0.32 0.03 55 / 0.55);
+  border: 1px solid oklch(0.92 0.05 75 / 0.45);
+  padding: 0.5rem 1.3rem;
+  border-radius: 999px;
+  font-size: clamp(0.85rem, 3.4vw, 1rem);
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background 0.2s, transform 0.2s;
+  animation: card-rise 0.6s ease both;
+}
+.inv-close-out:hover {
+  background: oklch(0.28 0.03 55 / 0.7);
+  transform: translateY(-1px);
+}
 
 /* fade-in entrance for the card */
 @keyframes card-rise {
